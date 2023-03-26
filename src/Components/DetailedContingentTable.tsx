@@ -6,7 +6,6 @@ function DetailedContingentTable() {
             <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">Select</th>
                         <th scope="col">Item No</th>
                         <th scope="col">Item Name</th>
                         <th scope="col">Quantity</th>
@@ -14,19 +13,16 @@ function DetailedContingentTable() {
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row"><input type="checkbox" className="form-check-input" /></th>
                         <td><input type="number" className="form-control" placeholder="Item No" /></td>
                         <td><input type="text" className="form-control" placeholder="Item Name" /></td>
                         <td><input type="number" className="form-control" placeholder="Quantity" /></td>
                     </tr>
                     <tr>
-                        <th scope="row"><input type="checkbox" className="form-check-input" /></th>
                         <td><input type="number" className="form-control" placeholder="Item No" /></td>
                         <td><input type="text" className="form-control" placeholder="Item Name" /></td>
                         <td><input type="number" className="form-control" placeholder="Quantity" /></td>
                     </tr>
                     <tr>
-                        <th scope="row"><input type="checkbox" className="form-check-input" /></th>
                         <td><input type="number" className="form-control" placeholder="Item No" /></td>
                         <td><input type="text" className="form-control" placeholder="Item Name" /></td>
                         <td><input type="number" className="form-control" placeholder="Quantity" /></td>

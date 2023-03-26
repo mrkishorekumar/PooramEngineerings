@@ -6,7 +6,7 @@ import ToAddress from '../Components/ToAddress'
 
 import { IBill, ICreateInvoice } from '../Interface/CreateInvoice'
 
-function CreateInvoice() {
+function CreateInvoice({ flag } : { flag : boolean }) {
 
   const [items, setItems] = useState<Array<IBill>>([
     {
@@ -38,7 +38,6 @@ function CreateInvoice() {
 
   useEffect(() => {
     let totalGst = Number(formData.cgstRate) + Number(formData.sgstRate) + Number(formData.igstRate)
-    console.log(totalGst)
     setFormData((prev) => ({
       ...prev,
       total : Number((totalGst/100 * prev.subTotal) + prev.subTotal)
@@ -48,11 +47,22 @@ function CreateInvoice() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    if(flag){
+      // dummy invoice req
+    }
+    else {
+      // create invoice req
+    }
     console.log({ ...formData, items: [...items] })
   }
 
   return (
     <form onSubmit={handleSubmit} className='mx-auto my-5 w-75 d-flex flex-column'>
+      <h2 className='text-decoration-underline'>
+        {
+          flag ? "Dummy Invoice" : "Create Invoice"
+        }
+      </h2>
       <div className='w-100 d-flex justify-content-between'>
         <FromAddress />
         <ToAddress />

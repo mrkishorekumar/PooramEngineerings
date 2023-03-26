@@ -11,7 +11,6 @@ function CompanyList() {
                         <th scope="col">Company Name</th>
                         <th scope="col">GST Number</th>
                         <th scope="col">Edit</th>
-                        <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -19,19 +18,16 @@ function CompanyList() {
                         <th scope="row">Otto</th>
                         <td>sdlfkal</td>
                         <td>📝</td>
-                        <td>🗑️</td>
                     </tr>
                     <tr>
                         <th scope="row">Otto</th>
                         <td>lkadnj32</td>
                         <td>📝</td>
-                        <td>🗑️</td>
                     </tr>
                     <tr>
                         <th scope="row">Otto</th>
                         <td>fnejfnwue</td>
                         <td>📝</td>
-                        <td>🗑️</td>
                     </tr>
                 </tbody>
             </table>
