@@ -1,23 +1,42 @@
-import { memo, useState } from 'react'
+import React, { memo, useState, useReducer } from 'react'
 import { PaginationControl } from 'react-bootstrap-pagination-control';
 
-import { Pagination } from '../Interface/Pagination'
+import { INITIAL_STATE, reducerFunction } from '../Utils/reducer'
+import { IPagination } from '../Interface/Pagination'
 
 function DetailedContingentList() {
 
-    const [page, setPage] = useState<Pagination>({
+    const [state, dispatch] = useReducer(reducerFunction, INITIAL_STATE)
+
+    const [page, setPage] = useState<IPagination>({
         currentPage : 1,
         totalData : 30
     })
+
+    const [formData, setFormData] = useState({
+        companyName : "",
+        invoiceNumber : "",
+        dateFilter : ""
+    })
+
+    const handleSubmit = (e : React.FormEvent) => {
+        e.preventDefault()
+        console.log(formData)
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData((prev) => ({...prev, [e.target.name] : e.target.value}))
+    }
 
   return (
     <section className='mx-auto my-5 w-75 d-flex flex-column'>
         <h1 className='mb-3'>Detailed Contingent (DC) List</h1>
             <p className='mb-4'>Filters</p>
-            <form className='d-flex gap-3 mb-4'>
-                <input placeholder='Company Name' type="text" className="form-control" />
-                <input placeholder='Invoice Number' type="number" className="form-control" />
-                <input placeholder='Date Filter' type="date" className="form-control" />
+            <form className='d-flex gap-3 mb-4' onSubmit={handleSubmit}>
+                <input name='companyName' onChange={handleChange} value={formData.companyName} placeholder='Company Name' type="text" className="form-control" />
+                <input name='invoiceNumber' onChange={handleChange} value={formData.invoiceNumber} placeholder='Invoice Number' type="number" className="form-control" />
+                <input name='dateFilter' onChange={handleChange} value={formData.dateFilter} placeholder='Date Filter' type="date" className="form-control" />
+                <button type="submit" className="btn btn-dark">{state.loading ? "Loading..." : "Find"}</button>
             </form>
             <table className="table table-striped">
                 <thead>

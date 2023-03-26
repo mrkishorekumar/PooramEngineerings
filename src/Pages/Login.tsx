@@ -1,7 +1,10 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useState, useReducer } from 'react'
+import { INITIAL_STATE, reducerFunction } from '../Utils/reducer'
 
 
 function Login() {
+
+  const [state, dispatch] = useReducer(reducerFunction, INITIAL_STATE)
 
   const [formData, setFormData] = useState<{
     email : string,
@@ -26,7 +29,7 @@ function Login() {
         <label htmlFor="password" className="form-label">Password</label>
         <input required onChange={(e) => setFormData((prev) => ({...prev, password : e.target.value}))} name='password' placeholder='Password' type="password" className="form-control" id="password" />
       </div>
-      <button type="submit" className="btn btn-dark">Login</button>
+      <button type="submit" className="btn btn-dark">{state.loading ? "Loading..." : "Login"}</button>
     </form>
   )
 }
