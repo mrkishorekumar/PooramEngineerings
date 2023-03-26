@@ -1,17 +1,22 @@
 import React, { Fragment, memo } from 'react'
 
-import { row } from '../Helper/addRow'
 import { IBill } from '../Interface/CreateInvoice' 
 
 interface IBillTable {
     items : Array<IBill>,
-    setItems : React.Dispatch<React.SetStateAction<IBill[]>>
+    setItems : React.Dispatch<React.SetStateAction<IBill[]>>,
 }
 
 function BillTable({items, setItems} : IBillTable) {
 
     const addRow = () => {
-        setItems((prev) => ([...prev, row]))
+        setItems((prev) => ([...prev, {
+            itemNo: "",
+            name: "",
+            quantity: 0,
+            price: 0,
+            total: 0
+          }]))
     }
 
     const deleteRow = () => {

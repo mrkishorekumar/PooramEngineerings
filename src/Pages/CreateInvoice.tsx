@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useState, useEffect } from 'react'
 import BillTable from '../Components/BillTable'
 import BillTotal from '../Components/BillTotal'
 import FromAddress from '../Components/FromAddress'
@@ -19,7 +19,7 @@ function CreateInvoice() {
   ])
 
   const [formData, setFormData] = useState<ICreateInvoice>({
-    to : "",
+    to: "",
     subTotal: 0,
     sgstRate: 0,
     cgstRate: 0,
@@ -27,9 +27,28 @@ function CreateInvoice() {
     total: 0
   })
 
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      subTotal: items.reduce((total, currentValue) => {
+        return total + currentValue.total
+      }, 0)
+    }))
+  }, [items])
+
+  useEffect(() => {
+    let totalGst = Number(formData.cgstRate) + Number(formData.sgstRate) + Number(formData.igstRate)
+    console.log(totalGst)
+    setFormData((prev) => ({
+      ...prev,
+      total : Number((totalGst/100 * prev.subTotal) + prev.subTotal)
+    }))
+  }, [formData.subTotal, formData.cgstRate, formData.sgstRate, formData.igstRate])
+
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log({...formData, items : [...items]})
+    console.log({ ...formData, items: [...items] })
   }
 
   return (
@@ -45,7 +64,7 @@ function CreateInvoice() {
         <div>
           <button type="submit" className="btn btn-primary p-3 fs-3">Save</button>
         </div>
-        <BillTotal />
+        <BillTotal formData={formData} setFormData={setFormData} items={items} />
       </div>
     </form>
   )
