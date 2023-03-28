@@ -3,7 +3,8 @@ export interface IBill {
     name: string,
     quantity: number,
     price: number,
-    total: number
+    total: number,
+    _id?: string
   }
 
 export interface ICreateInvoice {

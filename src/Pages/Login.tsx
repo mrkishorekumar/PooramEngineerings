@@ -32,7 +32,7 @@ function Login() {
     })
     .catch((err) => {
       dispatch({ type: "FETCH_ERROR" })
-      toast.error(err.response.data.error, toastSettings)
+      toast.error(err.response?.data.error, toastSettings)
     })
   }
 

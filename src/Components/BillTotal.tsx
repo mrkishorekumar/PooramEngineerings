@@ -30,7 +30,7 @@ function BillTotal({ formData, setFormData, items } : IBillTotal ) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
-      [e.target.name] : e.target.value
+      [e.target.name] : Number(e.target.value)
     }))
   }
 

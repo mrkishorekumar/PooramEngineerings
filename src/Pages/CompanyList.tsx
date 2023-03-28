@@ -2,17 +2,41 @@ import { Fragment, memo, useEffect, useState } from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import CompanyUpadateModel from '../Components/CompanyUpadateModel'
+import LoadingScreen from '../Components/LoadingScreen'
+
+export interface ICompanyList {
+    "_id": string,
+    "name": string,
+    "gstin": string,
+    "addressLine1": string,
+    "city": string,
+    "state": string,
+    "pincode": string,
+    "default": boolean,
+    "__v": number
+  }
 
 function CompanyList() {
 
-    const [list, setList] = useState<undefined | Array<any>>(undefined)
+    const [list, setList] = useState<undefined | Array<ICompanyList>>(undefined)
 
-    const [data, setData] = useState({})
+    const [data, setData] = useState<ICompanyList>({
+        "_id": "",
+        "name": "",
+        "gstin": "",
+        "addressLine1": "",
+        "city": "",
+        "state": "",
+        "pincode": "",
+        "default": false,
+        "__v": 0
+      })
 
     const fetchDetails = () => {
-        axios.get(`${import.meta.env.VITE_SERVER_KEY}/company/list?name=`, { headers: { Authorization: `Bearer ${Cookies.get('jwtKey')}` } })
+        axios.get(`${import.meta.env.VITE_SERVER_KEY}/company/list`, { headers: { Authorization: `Bearer ${Cookies.get('jwtKey')}` } })
             .then((res) => {
-                setList(res.data.data.companies)
+                const response : ICompanyList[] = res.data.data.companies
+                setList(response)
             })
             .catch((err) => {
                 console.log(err)
@@ -24,7 +48,7 @@ function CompanyList() {
     }, [])
 
     if (list === undefined) {
-        return <h1>Loading</h1>
+        return <LoadingScreen />
     }
 
     return (

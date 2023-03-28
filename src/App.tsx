@@ -32,7 +32,7 @@ function App() {
       page: <CreateInvoice flag={false} />
     },
     {
-      path: "/createinvoice/:id",
+      path: "/updateinvoice/:id",
       protected: true,
       page: <CreateInvoice flag={false} />
     },

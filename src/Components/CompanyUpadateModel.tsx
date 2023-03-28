@@ -1,13 +1,21 @@
-import { memo } from 'react'
+import React, { memo } from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify';
 import { toastSettings } from '../Utils/toast'
 
-function CompanyUpadateModel({data, setData, fetchDetails} : any) {
+import { ICompanyList } from '../Pages/CompanyList'
+
+interface ICompanyUpadateModel {
+    data : ICompanyList,
+    setData : React.Dispatch<React.SetStateAction<ICompanyList>>,
+    fetchDetails : () => void
+}
+
+function CompanyUpadateModel({data, setData, fetchDetails} : ICompanyUpadateModel) {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setData((prev : any) => ({ ...prev, [e.target.name]: e.target.value }))
+        setData((prev : ICompanyList) => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
     const handleSubmit = (e: React.FormEvent) => {
