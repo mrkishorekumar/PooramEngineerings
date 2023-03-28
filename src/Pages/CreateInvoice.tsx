@@ -72,7 +72,11 @@ function CreateInvoice({ flag } : { flag : boolean }) {
       </div>
       <div className='w-100 d-flex justify-content-between'>
         <div>
-          <button type="submit" className="btn btn-primary p-3 fs-3">Save</button>
+          <button type="submit" className="btn btn-primary p-3 fs-3">
+            {
+              flag ? "Print" : "Save"
+            }
+          </button>
         </div>
         <BillTotal formData={formData} setFormData={setFormData} items={items} />
       </div>

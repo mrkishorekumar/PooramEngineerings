@@ -1,6 +1,6 @@
 import { Fragment, memo } from 'react'
 import { Route, Routes } from 'react-router-dom'
-
+import ProtectedRoute from './Utils/ProtectedRoute'
 import Navbar from './Components/Navbar'
 import AddCompany from './Pages/AddCompany'
 import CompanyList from './Pages/CompanyList'
@@ -13,20 +13,83 @@ import Login from './Pages/Login'
 import Signup from './Pages/Signup'
 
 function App() {
+
+
+  const router = [
+    {
+      path: "/",
+      protected: false,
+      page: <Login />
+    },
+    {
+      path: "/create",
+      protected: true,
+      page: <Signup />
+    },
+    {
+      path: "/createinvoice",
+      protected: true,
+      page: <CreateInvoice flag={false} />
+    },
+    {
+      path: "/createinvoice/:id",
+      protected: true,
+      page: <CreateInvoice flag={false} />
+    },
+    {
+      path: "/addcompany",
+      protected: true,
+      page: <AddCompany />
+    },
+    {
+      path: "/dummyinvoice",
+      protected: true,
+      page: <DummyInvoice />
+    },
+    {
+      path: "/invoicelist",
+      protected: true,
+      page: <InvoiceList />
+    },
+    {
+      path: "/detailedcontingent",
+      protected: true,
+      page: <DetailedContingent />
+    },
+    {
+      path: "/detailedcontingent/:id",
+      protected: true,
+      page: <DetailedContingent />
+    },
+    {
+      path: "/detailedcontingentlist",
+      protected: true,
+      page: <DetailedContingentList />
+    },
+    {
+      path: "/companylist",
+      protected: true,
+      page: <CompanyList />
+    }
+  ]
+
   return (
     <Fragment>
-      <Navbar />
+      <Navbar/>
       <Routes>
-        <Route path='/' element={<Login />}/>
-        <Route path='/create' element={<Signup />} /> 
-        <Route path='/createinvoice' element={<CreateInvoice />} />
-        <Route path='/addcompany' element={<AddCompany />} />
-        <Route path='/dummyinvoice' element={<DummyInvoice />} />
-        <Route path='/invoicelist' element={<InvoiceList />} />
-        <Route path='/invoicelist/:id' element={<InvoiceList />} />
-        <Route path='/detailedcontingent' element={<DetailedContingent />} />
-        <Route path='/detailedcontingentlist' element={<DetailedContingentList />} />
-        <Route path='/companylist' element={<CompanyList />} />
+        {
+          router.map((val, index) => {
+            return (
+              (val.protected) ?
+                <Route key={index} path={val.path} element={
+                  <ProtectedRoute>
+                    {val.page}
+                  </ProtectedRoute>
+                } /> :
+                <Route key={index} path={val.path} element={val.page} />
+            )
+          })
+        }
       </Routes>
     </Fragment>
   )

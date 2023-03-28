@@ -1,8 +1,15 @@
 import React, { memo, useState, useReducer } from 'react'
+import Cookies from 'js-cookie'
+import { toast } from 'react-toastify';
+import { toastSettings } from '../Utils/toast'
 import { INITIAL_STATE, reducerFunction } from '../Utils/reducer'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 function Login() {
+
+  const navigate = useNavigate()
 
   const [state, dispatch] = useReducer(reducerFunction, INITIAL_STATE)
 
@@ -13,7 +20,20 @@ function Login() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log(formData)
+    dispatch({ type: "FETCH_START" })
+    axios.post(`${import.meta.env.VITE_SERVER_KEY}/auth/login`, formData)
+    .then((res) => {
+      if(res.status === 200){
+        dispatch({ type: "FETCH_SUCCESS" })
+        toast.success('Login Successfully!', toastSettings)
+        Cookies.set('jwtKey', res.data.data.token, { expires: 31 })
+        navigate('/invoicelist', { replace: true })
+      }
+    })
+    .catch((err) => {
+      dispatch({ type: "FETCH_ERROR" })
+      toast.error(err.response.data.error, toastSettings)
+    })
   }
 
   return (

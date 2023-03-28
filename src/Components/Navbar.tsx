@@ -1,5 +1,11 @@
 import { memo } from 'react'
 import { Link } from 'react-router-dom'
+import Cookies from 'js-cookie'
+
+export function logout() {
+  Cookies.remove("jwtKey")
+  window.location.href = '/';
+}
 
 function Navbar() {
   return (
@@ -11,6 +17,7 @@ function Navbar() {
 
         <div className="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
           <ul className="navbar-nav">
+
             <li className="nav-item">
               <Link className="nav-link active" aria-current="page" to="/detailedcontingent">Create DC</Link>
             </li>
@@ -33,11 +40,13 @@ function Navbar() {
               <Link className="nav-link active" to="/companylist">Company List</Link>
             </li>
             <li className="nav-item">
+              <a className="nav-link active" onClick={logout}>Logout</a>
+            </li>
+
+            <li className="nav-item">
               <Link to="/" className="nav-link active">Login</Link>
             </li>
-            <li className="nav-item">
-              <a className="nav-link active">Logout</a>
-            </li>            
+
           </ul>
         </div>
       </div>
