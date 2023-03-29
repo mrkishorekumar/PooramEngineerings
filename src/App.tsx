@@ -57,7 +57,7 @@ function App() {
       page: <DetailedContingent />
     },
     {
-      path: "/detailedcontingent/:id",
+      path: "/updatedetailedcontingent/:id",
       protected: true,
       page: <DetailedContingent />
     },

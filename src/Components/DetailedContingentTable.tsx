@@ -14,7 +14,7 @@ function DetailedContingentTable({items , setItems} : IDetailedContingentTablePr
     
     const addRow = () => {
         setItems((prev) => ([...prev, {
-            itemNo : 0,
+            itemNo : "",
             name : "",
             quantity : 0
           }]))
@@ -35,7 +35,7 @@ function DetailedContingentTable({items , setItems} : IDetailedContingentTablePr
                         items.map((val : DetailedContingentItems ,index : number) => {
                             return (
                                 <tr key={index}>
-                                    <td><input onChange={(e) => setItems((prev) => { prev[index].itemNo = Number(e.target.value); return [...prev]})} value={items[index].itemNo} min={0} type="number" className="form-control" placeholder="Item No" required /></td>
+                                    <td><input onChange={(e) => setItems((prev) => { prev[index].itemNo = e.target.value; return [...prev]})} value={items[index].itemNo} min={0} type="number" className="form-control" placeholder="Item No" required /></td>
                                     <td><input onChange={(e) => setItems((prev) => { prev[index].name = e.target.value; return [...prev]})} value={items[index].name} type="text" className="form-control" placeholder="Item Name" required /></td>
                                     <td><input onChange={(e) => setItems((prev) => { prev[index].quantity = Number(e.target.value); return [...prev]})} value={items[index].quantity} min={0} type="number" className="form-control" placeholder="Quantity" required /></td>
                                 </tr>

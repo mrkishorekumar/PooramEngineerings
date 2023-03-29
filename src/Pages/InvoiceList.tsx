@@ -81,7 +81,6 @@ function InvoiceList() {
 
 
     const handleSubmit = (e: React.FormEvent) => {
-        console.log()
         e.preventDefault()
         fetchData()
     }
@@ -97,6 +96,11 @@ function InvoiceList() {
 
     if (invoiceList === undefined) {
         return <LoadingScreen />
+    }
+
+    function printInvoice(id : string){
+        const win: Window = window;
+        win.location = `${import.meta.env.VITE_SERVER_KEY}/invoice/pdf/${id}`
     }
 
     return (
@@ -131,7 +135,7 @@ function InvoiceList() {
                                         <td>{new Date(val.createdAt).toLocaleDateString()}</td>
                                         <td>{val.to.name}</td>
                                         <td>{val.total.toFixed(2)}</td>
-                                        <td>🖨️</td>
+                                        <td onClick={() => printInvoice(val._id)}>🖨️</td>
                                         <td><Link to={`/updateinvoice/${val._id}`}>📝</Link></td>
                                         <td onClick={() => setDeleteInfo(val)} data-bs-toggle="modal" data-bs-target="#deleteinvoice">🗑️</td>
                                     </tr>

@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react'
 import { ICompanyList } from '../Pages/CompanyList'
 import { ICreateInvoice } from '../Interface/CreateInvoice'
+import { useLocation } from 'react-router-dom'
 
 interface ICompanyDetails {
     name : string,
@@ -9,22 +10,33 @@ interface ICompanyDetails {
 
 interface IToAddress {
     companyList : string | ICompanyList[] | undefined,
-    setFormData : React.Dispatch<React.SetStateAction<ICreateInvoice>>,
+    setFormData ?: React.Dispatch<React.SetStateAction<ICreateInvoice>>,
     id : string | undefined,
-    companyDetails : ICompanyDetails
+    companyDetails : ICompanyDetails,
+    setTo ?: React.Dispatch<React.SetStateAction<string>>
 }
 
-function ToAddress({ companyList, setFormData, id, companyDetails } : IToAddress) {
+function ToAddress({ companyList, setFormData, id, companyDetails, setTo } : IToAddress) {
+
+    const location = useLocation();
+
 
     const [selected, setSelected] = useState("")
 
-
     const setCompany = (e : React.ChangeEvent<HTMLSelectElement>) => {
         setSelected(e.target.value)
-        setFormData((prev) => ({
-            ...prev,
-            to : e.target[e.target.selectedIndex].id
-        }))
+        if(location.pathname === "/detailedcontingent" || window.location.pathname.split('/')[1] === "updatedetailedcontingent"){
+            if(setTo){
+                setTo(e.target[e.target.selectedIndex].id)
+            }
+        }
+        if(location.pathname === "/createinvoice" || window.location.pathname.split('/')[1] === "updateinvoice")
+            if(setFormData){
+                setFormData((prev) => ({
+                    ...prev,
+                    to : e.target[e.target.selectedIndex].id
+                }))
+            }
     }
 
     return (

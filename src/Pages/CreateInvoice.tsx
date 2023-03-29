@@ -144,6 +144,27 @@ function CreateInvoice({ flag }: { flag: boolean }) {
             if (res.status === 200) {
               dispatch({ type: "FETCH_SUCCESS" })
               toast.success(res.data.message, toastSettings)
+              setFormData({
+                to: "",
+                subTotal: 0,
+                sgstRate: 0,
+                cgstRate: 0,
+                igstRate: 0,
+                total: 0
+              })
+              setCompanyDetails({
+                name: "",
+                gst: ""
+              })
+              setItems([
+                {
+                  itemNo: "",
+                  name: "",
+                  quantity: 0,
+                  price: 0,
+                  total: 0
+                }
+              ])
             }
           })
           .catch((err) => {
