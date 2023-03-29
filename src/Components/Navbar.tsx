@@ -19,10 +19,10 @@ function Navbar() {
           <ul className="navbar-nav">
 
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/detailedcontingent">Create DC</Link>
+              <a href='/detailedcontingent' className="nav-link active" aria-current="page">Create DC</a>
             </li>
             <li className="nav-item">
-              <Link to="/createinvoice" className="nav-link active">Create Invoice</Link>
+              <a href="/createinvoice" className="nav-link active">Create Invoice</a>
             </li>
             <li className="nav-item">
               <Link className="nav-link active" to="/dummyinvoice">Create Dummy Invoice</Link>
